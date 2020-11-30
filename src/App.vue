@@ -1,26 +1,60 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<ToolBar/>
+<div class="outer">
+<HorizontalLayout left=30>
+  <template v-slot:left>
+    <WindowArea>left</WindowArea>
+  </template>
+  <template v-slot:right>
+    <VerticalLayout top=40>
+      <template v-slot:top>
+        <WindowArea>right top</WindowArea>
+      </template>
+      <template v-slot:bottom>
+        <WindowArea>right bottom</WindowArea>
+      </template>
+    </VerticalLayout>
+  </template>
+</HorizontalLayout>
+</div>
+<MiniBuffer/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+ import ToolBar from './components/ToolBar.vue'
+ import MiniBuffer from './components/MiniBuffer.vue'
+ import HorizontalLayout from './components/HorizontalLayout.vue'
+ import VerticalLayout from './components/VerticalLayout.vue'
+ import WindowArea from './components/WindowArea.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+ export default {
+   name: 'App',
+   components: {
+ToolBar,
+MiniBuffer,
+     WindowArea,
+     VerticalLayout,
+     HorizontalLayout
+   }
+ }
 </script>
 
 <style>
+@import "./assets/reset.css";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+   text-align: center;
+   margin: 0;
+   padding: 0;
+   height: 100vh;
+   width: 100vw;
+ }
+ * { box-sizing: border-box; }
+.outer{
+  height: calc(100vh - 40px - 1em);
+  width: 100vw;
+  display: flex;
+}
+.separator{
+    background: #333;
 }
 </style>
