@@ -1,9 +1,15 @@
 <template>
-      <div class="layout">
+  <div class="layout"
+       @dragover="dragOver($event)"
+       @dragend.prevent="dragEnd($event)"
+       >
         <div class="top" :style="{ height: 'calc('+top+'% - 2.5px)'}">
           <slot name="top"></slot>
         </div>
-        <div class="separator"></div>
+        <div class="separator"
+             draggable="true"
+             @dragstart="dragStart($event)"
+             ></div>
         <div class="bottom" :style="{ height: 'calc('+(100-top)+'% - 2.5px)'}">
           <slot name="bottom"></slot>
         </div>
@@ -12,11 +18,27 @@
 
 <script>
 export default {
-  name: 'HorizontalLayout',
+name: 'VerticalLayout',
+data(){
+return {top: 40}
+},
   props: {
-top: Number,
     msg: String
-  }
+},
+methods: {
+dragStart: ($event) => {
+console.log('start',[$event.clientY,$event.layerY,$event.offsetY,$event.pageY,$event.screenY])
+},
+dragEnd: ($event) => {
+console.log('end',[$event.clientY,$event.layerY,$event.offsetY,$event.pageY,$event.screenY])
+},
+dragOver: ($event) => {
+console.log('over',[$event.clientY,$event.layerY,$event.offsetY,$event.pageY,$event.screenY])
+},
+drag: ($event) => {
+console.log('drag',[$event.clientY,$event.layerY,$event.offsetY,$event.pageY,$event.screenY])
+},
+}
 }
 </script>
 

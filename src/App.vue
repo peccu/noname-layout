@@ -1,12 +1,12 @@
 <template>
 <ToolBar/>
 <div class="outer">
-<HorizontalLayout left=30>
+<HorizontalLayout>
   <template v-slot:left>
     <WindowArea>left</WindowArea>
   </template>
   <template v-slot:right>
-    <VerticalLayout top=40>
+    <VerticalLayout>
       <template v-slot:top>
         <WindowArea>right top</WindowArea>
       </template>
@@ -32,7 +32,8 @@
    components: {
 ToolBar,
 MiniBuffer,
-     WindowArea,
+WindowArea,
+
      VerticalLayout,
      HorizontalLayout
    }

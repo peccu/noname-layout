@@ -2,7 +2,7 @@
 <div class="windowarea">
   <div class="header">header area</div>
   <div class="main">
-    this is window area top:{{top}}
+    this is window area
     <slot></slot>
   </div>
   <div class="footer">menubar</div>
