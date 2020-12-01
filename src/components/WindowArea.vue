@@ -2,7 +2,10 @@
 <div class="windowarea">
   <div class="header">header area</div>
   <div class="main">
-    this is window area
+<pre>
+;; This buffer is for text that is not saved, and for Lisp evaluation.
+;; To create a file, visit it with C-x C-f and enter text in its buffer.
+</pre>
     <slot></slot>
     <button @click="$emit('enlarge')">enlarge</button>
     <button @click="$emit('shrink')">shrink</button>
@@ -10,7 +13,7 @@
   Enlarge text
 </button>
   </div>
-  <div class="footer">menubar</div>
+  <div class="modeline">-=--:**--F1 *scratch*  All L4 (Lisp Interaction)</div>
   </div>
 </template>
 
@@ -36,7 +39,7 @@ emits: ['enlarge', 'shrink', 'enlarge-text']
   display: flex;
   flex-direction: column;
 }
-.header, .footer{
+.header, .modeline{
   height: 1em;
 }
 .main{
