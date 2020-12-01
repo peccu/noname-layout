@@ -4,6 +4,11 @@
   <div class="main">
     this is window area
     <slot></slot>
+    <button @click="$emit('enlarge')">enlarge</button>
+    <button @click="$emit('shrink')">shrink</button>
+    <button @click="$emit('enlarge-text', 0.1)">
+  Enlarge text
+</button>
   </div>
   <div class="footer">menubar</div>
   </div>
@@ -16,7 +21,8 @@ export default {
   name: 'WindowArea',
 props: {
     msg: String
-}
+},
+emits: ['enlarge', 'shrink', 'enlarge-text']
 }
 </script>
 

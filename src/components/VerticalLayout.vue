@@ -4,14 +4,16 @@
        @dragend.prevent="dragEnd($event)"
        >
         <div class="top" :style="{ height: 'calc('+top+'% - 2.5px)'}">
-          <slot name="top"></slot>
+          <!-- <slot name="top"></slot> -->
+          <button @click="enlarge()">enlarge</button>
+          <button @click="shrink()">shrink</button>
         </div>
         <div class="separator"
              draggable="true"
              @dragstart="dragStart($event)"
              ></div>
         <div class="bottom" :style="{ height: 'calc('+(100-top)+'% - 2.5px)'}">
-          <slot name="bottom"></slot>
+          <slot name="bottom" @enlarge="enlarge()" @shrink="shrink()"></slot>
         </div>
       </div>
 </template>
@@ -26,6 +28,12 @@ return {top: 40}
     msg: String
 },
 methods: {
+enlarge(){
+this.top += 10;
+},
+shrink(){
+this.top -= 10;
+},
 dragStart: ($event) => {
 console.log('start',[$event.clientY,$event.layerY,$event.offsetY,$event.pageY,$event.screenY])
 },

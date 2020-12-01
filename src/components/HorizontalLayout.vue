@@ -4,7 +4,9 @@
        @dragend.prevent="dragEnd($event)"
        >
     <div class="left" :style="{ width: 'calc('+left+'% - 2.5px)'}">
-      <slot name="left"></slot>
+      <!-- <slot name="left"></slot> -->
+          <button @click="enlarge()">enlarge</button>
+          <button @click="shrink()">shrink</button>
     </div>
     <div class="separator"
              draggable="true"
@@ -28,6 +30,12 @@ props: {
 msg: String
 },
 methods: {
+enlarge(){
+this.left += 10;
+},
+shrink(){
+this.left -= 10;
+},
 dragStart: ($event) => {
 console.log('start',[$event.clientX,$event.layerX,$event.offsetX,$event.pageX,$event.screenX])
 },

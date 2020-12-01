@@ -11,7 +11,7 @@
         <WindowArea>right top</WindowArea>
       </template>
       <template v-slot:bottom>
-        <WindowArea>right bottom</WindowArea>
+        <WindowArea @enlarge-text="postFontSize += $event">right bottom {{postFontSize}}</WindowArea>
       </template>
     </VerticalLayout>
   </template>
@@ -36,7 +36,12 @@ WindowArea,
 
      VerticalLayout,
      HorizontalLayout
-   }
+},
+data(){
+return {
+postFontSize: 10.0
+}
+}
  }
 </script>
 
