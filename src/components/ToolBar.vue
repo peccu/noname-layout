@@ -1,29 +1,33 @@
 <template>
-<div class="tool">
-  <h1>this is tool bar: active: {{activeWindow}}</h1>
-    <button @click="$emit('enlarge')">enlarge</button>
-    <button @click="$emit('shrink')">shrink</button>
-  <button @click="$emit('other-window')">other-window</button>
-</div>
+  <div class="tool">
+    <h1>this is tool bar: active: {{activeWindow}}</h1>
+    <button v-for="(key, i) in emits" :key="i" @click="$emit(key)">{{key}}</button>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-msg: String,
-activeWindow: Number
-},
-emits: ['enlarge', 'shrink', 'other-window'],
-onmount(){
-}
-
-}
+ const emits = [
+   'enlarge', 'shrink', 'other-window',
+   'split-below', 'split-right'
+ ]
+ export default {
+   name: 'ToolBar',
+   props: {
+     msg: String,
+     activeWindow: Number
+   },
+   emits: emits,
+   data(){
+     return {
+       emits: emits
+     }
+   }
+ }
 </script>
 
 <style>
-.tool{
-  height: 40px;
-  width: 100%;
-}
+ .tool{
+   height: 40px;
+   width: 100%;
+ }
 </style>
