@@ -1,5 +1,12 @@
 <template>
-  <ToolBar :activeWindow="activeWindow" @other-window="otherWindow()"/>
+  <ToolBar :activeWindow="activeWindow"
+       @other-window="otherWindow()"
+       @split-below="splitBelow()"
+       @split-right="splitRight()"
+       @enlarge="enlarge()"
+       @shrink="shrink()"
+  />
+  <component :is="test"/>
   <div class="outer">
     <HorizontalLayout>
       <template v-slot:left>
@@ -11,7 +18,7 @@
             <WindowArea>right top</WindowArea>
           </template>
           <template v-slot:bottom>
-            <WindowArea @enlarge-text="postFontSize += $event">right bottom {{postFontSize}}</WindowArea>
+            <WindowArea @enlarge-text="postFontSize += $event">right bottom {{postFontSize}} aaa<TestRender></TestRender>bbb</WindowArea>
           </template>
         </VerticalLayout>
       </template>
@@ -22,6 +29,7 @@
 
 <script>
  import ToolBar from './ToolBar.vue'
+ import TestRender from './TestRender.vue'
  import MiniBuffer from './MiniBuffer.vue'
  import HorizontalLayout from './HorizontalLayout.vue'
  import VerticalLayout from './VerticalLayout.vue'
@@ -33,9 +41,9 @@
      ToolBar,
      MiniBuffer,
      WindowArea,
-
      VerticalLayout,
-     HorizontalLayout
+     HorizontalLayout,
+     TestRender
    },
    data(){
      return {
