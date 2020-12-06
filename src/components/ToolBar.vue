@@ -1,6 +1,6 @@
 <template>
   <div class="tool">
-    <h1>this is tool bar: active: {{activeWindow}}</h1>
+    <h1>this is tool bar: active: {{activeWindow}} in {{windowCount}} windows</h1>
     <button v-for="(key, i) in emits" :key="i" @click="$emit(key)">{{key}}</button>
   </div>
 </template>
@@ -14,7 +14,8 @@
    name: 'ToolBar',
    props: {
      msg: String,
-     activeWindow: Number
+     activeWindow: Number,
+     windowCount: Number
    },
    emits: emits,
    data(){

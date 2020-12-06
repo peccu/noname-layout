@@ -1,5 +1,6 @@
 <template>
   <ToolBar :activeWindow="activeWindow"
+       :windowCount="windowCount"
        @other-window="otherWindow()"
        @split-below="splitBelow()"
        @split-right="splitRight()"
@@ -48,13 +49,29 @@
    data(){
      return {
        postFontSize: 10.0,
-       activeWindow: 0
+       activeWindow: 0,
+       windowCount: 0
      }
    },
    methods:{
      otherWindow(){
-       this.activeWindow += 1
-     }
+       this.activeWindow = (this.activeWindow + 1) % this.windowCount
+     },
+     splitBelow(){
+       console.log('before')
+       this.$store.commit('splitBelow', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
+       console.log(this.$store.state.windows)
+       this.windowCount = this.$store.state.windows.length
+     },
+     splitRight(){
+       this.$store.commit('splitRight', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
+       console.log(this.$store.state.windows)
+       this.windowCount = this.$store.state.windows.length
+     },
+     enlarge(){
+     },
+     shrink(){
+     },
    }
  }
 </script>
