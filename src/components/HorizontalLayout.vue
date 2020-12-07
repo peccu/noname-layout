@@ -3,58 +3,40 @@
        @dragover="dragOver($event)"
        @dragend.prevent="dragEnd($event)"
   >
-    <div class="left" :style="{ width: 'calc('+left+'% - 2.5px)'}">
-      <WindowArea
-        :activeWindow="activeWindow"
-        :thisWindow="0"
-        @enlarge="enlarge(1)"
-        @shrink="shrink(1)"
-      ><slot name="left"></slot></WindowArea>
+    <div class="primary" :style="{ width: 'calc('+size+'% - 2.5px)'}">
+      <LayoutArea :layout="layout.primary"></LayoutArea>
     </div>
     <div class="separator"
          draggable="true"
          @dragstart="dragStart($event)"
     ></div>
-    <div class="right" :style="{ width: 'calc('+(100-left)+'% - 2.5px)'}">
-      <!-- ここがwindow areaじゃなくて、layoutに置き換わらないといけないみたい。
-           となるとこのコンポーネントにwindowareaをおいちゃうと困る
-      -->
-      <WindowArea
-        v-if="false"
-        :activeWindow="activeWindow"
-        :thisWindow="1"
-        @enlarge-text="postFontSize += $event"
-        @enlarge="shrink(2)"
-        @shrink="enlarge(2)"
-      ><slot name="right"></slot></WindowArea>
-      <slot v-else name="right"></slot>
+    <div class="secondary" :style="{ width: 'calc('+(100-size)+'% - 2.5px)'}">
+      <LayoutArea :layout="layout.secondary"></LayoutArea>
     </div>
   </div>
 </template>
 
 <script>
- import WindowArea from './WindowArea.vue'
+ import { defineAsyncComponent } from 'vue'
+ import LayoutArea from './LayoutArea.vue'
+ import store from '../store/store.js'
+
  export default {
    name: 'HorizontalLayout',
    components: {
-     WindowArea
-   },
-   data(){
-     return {
-       left: 50
-     }
+     LayoutArea: defineAsyncComponent(() => Promise.resolve(LayoutArea))
    },
    props: {
      activeWindow: Number,
+     layout: Object,
      msg: String
    },
+   computed:{
+     size(){
+       return store.state.size[this.layout.no]
+     }
+   },
    methods: {
-     enlarge(){
-       this.left += 10;
-     },
-     shrink(){
-       this.left -= 10;
-     },
      dragStart: ($event) => {
        console.log('start',[$event.clientX,$event.layerX,$event.offsetX,$event.pageX,$event.screenX])
      },

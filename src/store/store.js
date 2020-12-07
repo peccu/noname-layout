@@ -1,35 +1,76 @@
 import { createStore } from 'vuex'
 
+// const traverse = (tree, nth, action, i) => {
+//   if(i === null){
+//     console.log('null')
+//   }else{
+//     console.log('foo', i)
+//   }
+// }
+
+const foundinPrimary = (layout, nth) => {
+  return layout.type != 'buffer'
+    && (layout.primary.type == 'buffer' && layout.primary.no == nth)
+}
+
+const foundinSecondary = (layout, nth) => {
+  return layout.type != 'buffer'
+    && (layout.secondary.type == 'buffer' && layout.secondary.no == nth)
+}
+
+const findLayoutNo = (layout, nth) => {
+  if(foundinPrimary(layout, nth)){
+    return {layer: layout.no, direction: 1}
+  }
+  if(foundinSecondary(layout, nth)){
+    return {layer: layout.no, direction: -1}
+  }
+  if(layout.type == 'buffer' && layout.no != nth){
+    return false
+  }
+  const primary = findLayoutNo(layout.primary, nth)
+  if(primary != false){
+    return primary
+  }
+  const secondary = findLayoutNo(layout.secondary, nth)
+  if(secondary != false){
+    return secondary
+  }
+}
+
 // Create a new store instance.
 export default createStore({
   state () {
     return {
       count: 0,
       frames: [],
-      left: [
-        50,
-        50,
+      size: [
+        30,
         50
       ],
-      layouts: {
+      activeWindow: 0,
+      layout: {
+        no: 0,
         type: 'horizontal',
-        left: {
+        primary: {
+          no: 0,
           type: 'buffer',
-          buffer: "some buffer"
+          buffer: "some buffer left"
         },
-        right: {
+        secondary: {
+          no: 1,
           type: 'vertical',
-          top: {
+          primary: {
+            no: 1,
             type: 'buffer',
-            buffer: "some buffer"
+            buffer: "some buffer right top"
           },
-          bottom: {
+          secondary: {
+            no: 2,
             type: 'buffer',
-            buffer: "some buffer"
-          },
-          size: 50
-        },
-        size: 50
+            buffer: "some buffer right bottom"
+          }
+        }
       },
       windows: [
         {buffer: "some buffer"},
@@ -43,6 +84,9 @@ export default createStore({
     increment (state) {
       state.count++
     },
+    otherWindow (state) {
+      state.activeWindow = (state.activeWindow + 1) % state.windows.length
+    },
     splitBelow (state, payload) {
       const newWindow = {
         buffer: payload.currentWindow.buffer
@@ -54,6 +98,14 @@ export default createStore({
         buffer: payload.currentWindow.buffer
       }
       state.windows.splice(payload.nth, 0, newWindow)
+    },
+    enlarge (state) {
+      let result = findLayoutNo(state.layout, state.activeWindow)
+      state.size[result.layer] += result.direction * 10
+    },
+    shrink (state) {
+      let result = findLayoutNo(state.layout, state.activeWindow)
+      state.size[result.layer] -= result.direction * 10
     }
   }
 })

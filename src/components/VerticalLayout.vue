@@ -3,54 +3,40 @@
        @dragover="dragOver($event)"
        @dragend.prevent="dragEnd($event)"
   >
-    <div class="top" :style="{ height: 'calc('+top+'% - 2.5px)'}">
-      <WindowArea
-        :activeWindow="activeWindow"
-        :thisWindow="1"
-        @enlarge-text="postFontSize += $event"
-        @enlarge="enlarge(1)"
-        @shrink="shrink(1)"
-      ><slot name="top"></slot></WindowArea>
+    <div class="primary" :style="{ height: 'calc('+size+'% - 2.5px)'}">
+      <LayoutArea :layout="layout.primary"></LayoutArea>
     </div>
     <div class="separator"
          draggable="true"
          @dragstart="dragStart($event)"
     ></div>
-    <div class="bottom" :style="{ height: 'calc('+(100-top)+'% - 2.5px)'}">
-      <WindowArea
-        :activeWindow="activeWindow"
-        :thisWindow="2"
-        @enlarge-text="postFontSize += $event"
-        @enlarge="shrink(2)"
-        @shrink="enlarge(2)"
-      ><slot name="bottom"></slot></WindowArea>
+    <div class="secondary" :style="{ height: 'calc('+(100-size)+'% - 2.5px)'}">
+      <LayoutArea :layout="layout.secondary"></LayoutArea>
     </div>
   </div>
 </template>
 
 <script>
- import WindowArea from './WindowArea.vue'
+ import { defineAsyncComponent } from 'vue'
+ import LayoutArea from './LayoutArea.vue'
+ import store from '../store/store.js'
+
  export default {
    name: 'VerticalLayout',
    components: {
-     WindowArea
-   },
-   data(){
-     return {top: 50}
+     LayoutArea: defineAsyncComponent(() => Promise.resolve(LayoutArea))
    },
    props: {
      activeWindow: Number,
+     layout: Object,
      msg: String
    },
+   computed:{
+     size(){
+       return store.state.size[this.layout.no]
+     }
+   },
    methods: {
-     enlarge(){
-       console.log('enlarge')
-       this.top += 10;
-     },
-     shrink(){
-       console.log('shrink')
-       this.top -= 10;
-     },
      dragStart: ($event) => {
        console.log('start',[$event.clientY,$event.layerY,$event.offsetY,$event.pageY,$event.screenY])
      },

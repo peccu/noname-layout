@@ -9,14 +9,10 @@
 ;; This buffer is for text that is not saved, and for Lisp evaluation.
 ;; To create a file, visit it with C-x C-f and enter text in its buffer.
       </pre>
+      <div>buffer name: {{buffer}}</div>
       <div>
         <slot></slot>
       </div>
-      <button @click="$emit('enlarge')">enlarge</button>
-      <button @click="$emit('shrink')">shrink</button>
-      <button @click="$emit('enlarge-text', 1.0)">
-        Enlarge text
-      </button>
     </div>
     <ModeLine
       :thisWindow="thisWindow"
@@ -31,6 +27,9 @@
 
  import HeaderLine from './HeaderLine.vue'
  import ModeLine from './ModeLine.vue'
+
+ import store from '../store/store.js'
+
  export default {
    name: 'WindowArea',
    components: {
@@ -38,11 +37,15 @@
      ModeLine
    },
    props: {
-     msg: String,
-     activeWindow: Number,
+     buffer: String,
      thisWindow: Number
    },
-   emits: ['enlarge', 'shrink', 'enlarge-text']
+   emits: ['enlarge', 'shrink', 'enlarge-text'],
+   computed:{
+     activeWindow(){
+       return store.state.activeWindow
+     }
+   }
  }
 </script>
 

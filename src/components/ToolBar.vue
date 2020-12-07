@@ -6,6 +6,7 @@
 </template>
 
 <script>
+ import store from '../store/store.js'
  const emits = [
    'enlarge', 'shrink', 'other-window',
    'split-below', 'split-right'
@@ -14,13 +15,17 @@
    name: 'ToolBar',
    props: {
      msg: String,
-     activeWindow: Number,
      windowCount: Number
    },
    emits: emits,
    data(){
      return {
        emits: emits
+     }
+   },
+   computed:{
+     activeWindow(){
+       return store.state.activeWindow
      }
    }
  }
