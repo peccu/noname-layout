@@ -15,7 +15,7 @@
         Enlarge text
       </button>
     </div>
-    <div class="modeline">-=--:**--F1 *scratch*  All L4 (Lisp Interaction)</div>
+    <ModeLine :thisWindow="thisWindow"></ModeLine>
   </div>
 </template>
 
@@ -23,8 +23,12 @@
  // need to set correct width and height from surround objects
  /* これはもしかしてウィンドウではなくバッファ？ */
 
+ import ModeLine from './ModeLine.vue'
  export default {
    name: 'WindowArea',
+   components: {
+     ModeLine
+   },
    props: {
      msg: String,
      activeWindow: Number,
@@ -44,7 +48,7 @@
    display: flex;
    flex-direction: column;
  }
- .header, .modeline{
+ .header{
    height: 1em;
    overflow-x: hidden;
  }
