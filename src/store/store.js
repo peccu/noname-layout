@@ -99,11 +99,19 @@ export default createStore({
       }
       state.windows.splice(payload.nth, 0, newWindow)
     },
-    enlarge (state) {
+    enlargeWindow (state) {
       let result = findLayoutNo(state.layout, state.activeWindow)
       state.size[result.layer] += result.direction * 10
     },
-    shrink (state) {
+    shrinkWindow (state) {
+      let result = findLayoutNo(state.layout, state.activeWindow)
+      state.size[result.layer] -= result.direction * 10
+    },
+    enlargeWindowHorizontally (state) {
+      let result = findLayoutNo(state.layout, state.activeWindow)
+      state.size[result.layer] += result.direction * 10
+    },
+    shrinkWindowHorizontally (state) {
       let result = findLayoutNo(state.layout, state.activeWindow)
       state.size[result.layer] -= result.direction * 10
     }

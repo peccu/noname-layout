@@ -8,7 +8,7 @@
 <script>
  import store from '../store/store.js'
  const emits = [
-   'enlarge', 'shrink', 'other-window',
+   'enlarge-window', 'shrink-window', 'enlarge-window-horizontally', 'shrink-window-horizontally', 'other-window',
    'split-below', 'split-right'
  ]
  export default {

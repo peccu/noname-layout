@@ -4,8 +4,10 @@
     @other-window="otherWindow()"
     @split-below="splitBelow()"
     @split-right="splitRight()"
-    @enlarge="enlarge()"
-    @shrink="shrink()"
+    @enlarge-window="enlargeWindow()"
+    @shrink-window="shrinkWindow()"
+    @enlarge-window-horizontally="enlargeWindowHorizontally()"
+    @shrink-window-horizontally="shrinkWindowHorizontally()"
   />
   <div class="outer">
     <LayoutArea :layout="layout"></LayoutArea>
@@ -53,11 +55,17 @@
        this.$store.commit('splitRight', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
        console.log(this.$store.state.windows)
      },
-     enlarge(){
-       this.$store.commit('enlarge')
+     enlargeWindow(){
+       this.$store.commit('enlargeWindow')
      },
-     shrink(){
-       this.$store.commit('shrink')
+     shrinkWindow(){
+       this.$store.commit('shrinkWindow')
+     },
+     enlargeWindowHorizontally(){
+       this.$store.commit('enlargeWindowHorizontally')
+     },
+     shrinkWindowHorizontally(){
+       this.$store.commit('shrinkWindowHorizontally')
      },
    }
  }
