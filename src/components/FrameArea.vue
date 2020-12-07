@@ -35,6 +35,8 @@
  import VerticalLayout from './VerticalLayout.vue'
  /* import WindowArea from './WindowArea.vue' */
 
+ import store from '../store/store.js'
+
  export default {
    name: 'Frame',
    components: {
@@ -48,8 +50,12 @@
    data(){
      return {
        postFontSize: 10.0,
-       activeWindow: 0,
-       windowCount: 3
+       activeWindow: 0
+     }
+   },
+   computed:{
+     windowCount(){
+       return store.state.windows.length
      }
    },
    methods:{
