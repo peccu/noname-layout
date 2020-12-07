@@ -1,6 +1,9 @@
 <template>
   <div class="windowarea">
-    <div class="header" :style="{backgroundColor: (activeWindow == thisWindow ? 'white' : 'inherit' )}">header area</div>
+    <HeaderLine
+      :thisWindow="thisWindow"
+      :activeWindow="activeWindow"
+    ></HeaderLine>
     <div class="main">
       <pre>
 ;; This buffer is for text that is not saved, and for Lisp evaluation.
@@ -26,10 +29,12 @@
  // need to set correct width and height from surround objects
  /* これはもしかしてウィンドウではなくバッファ？ */
 
+ import HeaderLine from './HeaderLine.vue'
  import ModeLine from './ModeLine.vue'
  export default {
    name: 'WindowArea',
    components: {
+     HeaderLine,
      ModeLine
    },
    props: {
@@ -50,10 +55,6 @@
    padding: 0px;
    display: flex;
    flex-direction: column;
- }
- .header{
-   height: 1em;
-   overflow-x: hidden;
  }
  .main{
    height: calc(100% - 2em);
