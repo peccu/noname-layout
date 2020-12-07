@@ -15,7 +15,10 @@
         Enlarge text
       </button>
     </div>
-    <ModeLine :thisWindow="thisWindow"></ModeLine>
+    <ModeLine
+      :thisWindow="thisWindow"
+      :activeWindow="activeWindow"
+    ></ModeLine>
   </div>
 </template>
 
