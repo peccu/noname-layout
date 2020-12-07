@@ -7,19 +7,18 @@
        @enlarge="enlarge()"
        @shrink="shrink()"
   />
-  <component :is="test"/>
   <div class="outer">
-    <HorizontalLayout>
+    <HorizontalLayout :activeWindow="activeWindow">
       <template v-slot:left>
-        <WindowArea>left</WindowArea>
+        left
       </template>
       <template v-slot:right>
-        <VerticalLayout>
+        <VerticalLayout :activeWindow="activeWindow">
           <template v-slot:top>
-            <WindowArea>right top</WindowArea>
+            right top
           </template>
           <template v-slot:bottom>
-            <WindowArea @enlarge-text="postFontSize += $event">right bottom {{postFontSize}} aaa<TestRender></TestRender>bbb</WindowArea>
+            right bottom {{postFontSize}} aaa<TestRender></TestRender>bbb
           </template>
         </VerticalLayout>
       </template>
@@ -34,14 +33,14 @@
  import MiniBuffer from './MiniBuffer.vue'
  import HorizontalLayout from './HorizontalLayout.vue'
  import VerticalLayout from './VerticalLayout.vue'
- import WindowArea from './WindowArea.vue'
+ /* import WindowArea from './WindowArea.vue' */
 
  export default {
    name: 'Frame',
    components: {
      ToolBar,
      MiniBuffer,
-     WindowArea,
+     /* WindowArea, */
      VerticalLayout,
      HorizontalLayout,
      TestRender
@@ -50,7 +49,7 @@
      return {
        postFontSize: 10.0,
        activeWindow: 0,
-       windowCount: 0
+       windowCount: 3
      }
    },
    methods:{
@@ -67,11 +66,7 @@
        this.$store.commit('splitRight', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
        console.log(this.$store.state.windows)
        this.windowCount = this.$store.state.windows.length
-     },
-     enlarge(){
-     },
-     shrink(){
-     },
+     }
    }
  }
 </script>

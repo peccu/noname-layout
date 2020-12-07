@@ -6,7 +6,11 @@ export default createStore({
     return {
       count: 0,
       frames: [],
-      windows: [],
+      windows: [
+        {buffer: "some buffer"},
+        {buffer: "some buffer"},
+        {buffer: "some buffer"}
+      ],
       buffers: []
     }
   },

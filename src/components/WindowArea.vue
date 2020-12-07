@@ -1,12 +1,14 @@
 <template>
   <div class="windowarea">
-    <div class="header">header area</div>
+    <div class="header" :style="{backgroundColor: (activeWindow == thisWindow ? 'white' : 'inherit' )}">header area</div>
     <div class="main">
       <pre>
 ;; This buffer is for text that is not saved, and for Lisp evaluation.
 ;; To create a file, visit it with C-x C-f and enter text in its buffer.
       </pre>
-      <slot></slot>
+      <div>
+        <slot></slot>
+      </div>
       <button @click="$emit('enlarge')">enlarge</button>
       <button @click="$emit('shrink')">shrink</button>
       <button @click="$emit('enlarge-text', 1.0)">
@@ -19,11 +21,14 @@
 
 <script>
  // need to set correct width and height from surround objects
+ /* これはもしかしてウィンドウではなくバッファ？ */
 
  export default {
    name: 'WindowArea',
    props: {
-     msg: String
+     msg: String,
+     activeWindow: Number,
+     thisWindow: Number
    },
    emits: ['enlarge', 'shrink', 'enlarge-text']
  }

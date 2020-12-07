@@ -4,29 +4,48 @@
        @dragend.prevent="dragEnd($event)"
   >
     <div class="left" :style="{ width: 'calc('+left+'% - 2.5px)'}">
-      <!-- <slot name="left"></slot> -->
-      <button @click="enlarge()">enlarge</button>
-      <button @click="shrink()">shrink</button>
+      <WindowArea
+        :activeWindow="activeWindow"
+        :thisWindow="0"
+        @enlarge="enlarge(1)"
+        @shrink="shrink(1)"
+      ><slot name="left"></slot></WindowArea>
     </div>
     <div class="separator"
          draggable="true"
          @dragstart="dragStart($event)"
     ></div>
     <div class="right" :style="{ width: 'calc('+(100-left)+'% - 2.5px)'}">
-      <slot name="right"></slot>
+      <!-- ここがwindow areaじゃなくて、layoutに置き換わらないといけないみたい。
+           となるとこのコンポーネントにwindowareaをおいちゃうと困る
+      -->
+      <WindowArea
+        v-if="false"
+        :activeWindow="activeWindow"
+        :thisWindow="1"
+        @enlarge-text="postFontSize += $event"
+        @enlarge="shrink(2)"
+        @shrink="enlarge(2)"
+      ><slot name="right"></slot></WindowArea>
+      <slot v-else name="right"></slot>
     </div>
   </div>
 </template>
 
 <script>
+ import WindowArea from './WindowArea.vue'
  export default {
    name: 'HorizontalLayout',
+   components: {
+     WindowArea
+   },
    data(){
      return {
-       left: 30
+       left: 50
      }
    },
    props: {
+     activeWindow: Number,
      msg: String
    },
    methods: {

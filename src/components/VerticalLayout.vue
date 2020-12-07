@@ -4,34 +4,51 @@
        @dragend.prevent="dragEnd($event)"
   >
     <div class="top" :style="{ height: 'calc('+top+'% - 2.5px)'}">
-      <!-- <slot name="top"></slot> -->
-      <button @click="enlarge()">enlarge</button>
-      <button @click="shrink()">shrink</button>
+      <WindowArea
+        :activeWindow="activeWindow"
+        :thisWindow="1"
+        @enlarge-text="postFontSize += $event"
+        @enlarge="enlarge(1)"
+        @shrink="shrink(1)"
+      ><slot name="top"></slot></WindowArea>
     </div>
     <div class="separator"
          draggable="true"
          @dragstart="dragStart($event)"
     ></div>
     <div class="bottom" :style="{ height: 'calc('+(100-top)+'% - 2.5px)'}">
-      <slot name="bottom" @enlarge="enlarge()" @shrink="shrink()"></slot>
+      <WindowArea
+        :activeWindow="activeWindow"
+        :thisWindow="2"
+        @enlarge-text="postFontSize += $event"
+        @enlarge="shrink(2)"
+        @shrink="enlarge(2)"
+      ><slot name="bottom"></slot></WindowArea>
     </div>
   </div>
 </template>
 
 <script>
+ import WindowArea from './WindowArea.vue'
  export default {
    name: 'VerticalLayout',
+   components: {
+     WindowArea
+   },
    data(){
-     return {top: 40}
+     return {top: 50}
    },
    props: {
+     activeWindow: Number,
      msg: String
    },
    methods: {
      enlarge(){
+       console.log('enlarge')
        this.top += 10;
      },
      shrink(){
+       console.log('shrink')
        this.top -= 10;
      },
      dragStart: ($event) => {
