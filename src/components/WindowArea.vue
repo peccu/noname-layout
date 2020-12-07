@@ -46,10 +46,12 @@
  }
  .header, .modeline{
    height: 1em;
+   overflow-x: hidden;
  }
  .main{
    height: calc(100% - 2em);
    background: #aaa;
+   overflow: scroll;
  }
 
 </style>
