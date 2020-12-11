@@ -1,6 +1,11 @@
 import { createStore } from 'vuex'
 
-import { findLayoutNo, sampleLayout } from './layouts.js'
+import {
+  findLayoutNo,
+  sampleLayout,
+  nearestHLayout,
+  nearestVLayout,
+} from './layouts.js'
 
 // Create a new store instance.
 export default createStore({

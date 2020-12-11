@@ -17,10 +17,7 @@ const foundinSecondary = (layout, nth) => {
 }
 
 const findLayoutNo = (layout, nth) => {
-  if(nth < 0){
-    return false
-  }
-  if(layout.type == 'buffer' && layout.no != nth){
+  if(nth < 0 || (layout.type == 'buffer' && layout.no != nth)){
     // maybe not found
     return false
   }
@@ -45,8 +42,46 @@ const findLayoutNo = (layout, nth) => {
   return false
 }
 
-const sum = (a, b) => {
-  return a + b
+// find nearest hlayout for vertical split
+const nearestHLayout = (layout, nth) => {
+  if(nth < 0 || layout.type == 'buffer'){
+    // no split means no separator
+    return false
+  }
+  if(layout.type == 'horizontal' && foundinPrimary(layout, nth)){
+    // fund in left
+    return {layer: layout.no, direction: 1}
+  }
+  if(layout.type == 'horizontal' && foundinSecondary(layout, nth)){
+    // fund in right
+    return {layer: layout.no, direction: -1}
+  }
+  if(layout.type == 'vertical' &&
+     (foundinPrimary(layout, nth) || foundinSecondary(layout, nth))){
+    // fund with vertical separator
+    return false
+  }
+  const primary = nearestHLayout(layout.primary, nth)
+  if(primary != false){
+    return primary
+  }
+  const secondary = nearestHLayout(layout.secondary, nth)
+  if(secondary != false){
+    return secondary
+  }
+  return false
+}
+// find nearest vlayout for horizontal split
+const nearestVLayout = (layout, nth) => {
+  if(nth < 0 || layout.type == 'buffer'){
+    // no split means no separator
+    return false
+  }
+  if(layout.type == 'horizontal'){
+    // ther is no vertical separator
+    return false
+  }
+  // TBD
 }
 
 const sampleLayout = {
@@ -73,7 +108,8 @@ const sampleLayout = {
   }
 }
 export {
-  sum,
   findLayoutNo,
+  nearestHLayout,
+  nearestVLayout,
   sampleLayout
 }
