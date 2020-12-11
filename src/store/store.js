@@ -3,8 +3,8 @@ import { createStore } from 'vuex'
 import {
   findLayoutNo,
   sampleLayout,
-  nearestHLayout,
-  nearestVLayout,
+  // nearestHLayout,
+  // nearestVLayout,
 } from './layouts.js'
 
 // Create a new store instance.
