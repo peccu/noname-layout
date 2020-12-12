@@ -1,3 +1,36 @@
+/*
+ * horizontal layout
+ *
+ * +-----------+-----------+
+ * |           |           |
+ * |  Primary  | Secondary |
+ * |           |           |
+ * +-----------+-----------+
+ *
+ * { type: 'horizontal',
+ *   no, primary, secondary }
+ *
+ * */
+/*
+ * vertical layout
+ *
+ * +-----------+
+ * |           |
+ * |  Primary  |
+ * |           |
+ * +-----------+
+ * |           |
+ * | Secondary |
+ * |           |
+ * +-----------+
+ *
+ * { type: 'vertical',
+ *   no, primary, secondary }
+ *
+ * */
+
+
+
 // const traverse = (tree, nth, action, i) => {
 //   if(i === null){
 //     console.log('null')
@@ -43,7 +76,10 @@ const findLayoutNo = (layout, nth) => {
 }
 
 // find nearest hlayout for vertical split
-const nearestHLayout = (layout, nth) => {
+const nearestHLayout = (layout, nth, found) => {
+  if(!found){
+    found = false
+  }
   if(nth < 0 || layout.type == 'buffer'){
     // no split means no separator
     return false
@@ -59,13 +95,15 @@ const nearestHLayout = (layout, nth) => {
   if(layout.type == 'vertical' &&
      (foundinPrimary(layout, nth) || foundinSecondary(layout, nth))){
     // fund with vertical separator
-    return false
+    return found
   }
-  const primary = nearestHLayout(layout.primary, nth)
+  const primaryFound = {layer: layout.no, direction: 1}
+  const primary = nearestHLayout(layout.primary, nth, primaryFound)
   if(primary != false){
     return primary
   }
-  const secondary = nearestHLayout(layout.secondary, nth)
+  const secondaryFound = {layer: layout.no, direction: -1}
+  const secondary = nearestHLayout(layout.secondary, nth, secondaryFound)
   if(secondary != false){
     return secondary
   }
