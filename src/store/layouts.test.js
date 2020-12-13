@@ -86,7 +86,10 @@ test('find horizontal nearest layout no for resize horizontal from no layout', (
   expect(nearestHLayout(firstlayout, 0)).toStrictEqual(false)
 })
 test('find horizontal nearest layout no for resize horizontal from vertical layout', () => {
+  expect(nearestHLayout(verticalLayout, -1)).toStrictEqual(false)
   expect(nearestHLayout(verticalLayout, 0)).toStrictEqual(false)
+  expect(nearestHLayout(verticalLayout, 1)).toStrictEqual(false)
+  expect(nearestHLayout(verticalLayout, 2)).toStrictEqual(false)
 })
 test('find horizontal nearest layout no for resize horizontal from horizontal layout', () => {
   expect(nearestHLayout(horizontalLayout, -1)).toStrictEqual(false)
@@ -133,55 +136,58 @@ test('find horizontal nearest layout no for resize horizontal from h in vlayout'
 })
 
 // nearest V Layout
-// test('find horizontal nearest layout no for resize horizontal from no layout', () => {
-//   expect(nearestVLayout(firstlayout, 0)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from vertical layout', () => {
-//   expect(nearestVLayout(verticalLayout, 0)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from horizontal layout', () => {
-//   expect(nearestVLayout(horizontalLayout, -1)).toStrictEqual(false)
-//   expect(nearestVLayout(horizontalLayout, 0)).toStrictEqual({layer: 0, direction: 1})
-//   expect(nearestVLayout(horizontalLayout, 1)).toStrictEqual({layer: 0, direction: -1})
-//   expect(nearestVLayout(horizontalLayout, 2)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from hvlayout', () => {
-//   expect(nearestVLayout(hvlayout, -1)).toStrictEqual(false)
-//   expect(nearestVLayout(hvlayout, 0)).toStrictEqual({layer: 0, direction: 1})
-//   expect(nearestVLayout(hvlayout, 1)).toStrictEqual({layer: 0, direction: -1})
-//   expect(nearestVLayout(hvlayout, 2)).toStrictEqual({layer: 0, direction: -1})
-//   expect(nearestVLayout(hvlayout, 3)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from vhlayout', () => {
-//   expect(nearestVLayout(vhlayout, -1)).toStrictEqual(false)
-//   expect(nearestVLayout(vhlayout, 0)).toStrictEqual(false)
-//   expect(nearestVLayout(vhlayout, 1)).toStrictEqual({layer: 1, direction: 1})
-//   expect(nearestVLayout(vhlayout, 2)).toStrictEqual({layer: 1, direction: -1})
-//   expect(nearestVLayout(vhlayout, 3)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from hvhvlayout', () => {
-//   expect(nearestVLayout(nearest1, -1)).toStrictEqual(false)
-//   expect(nearestVLayout(nearest1, 0)).toStrictEqual({layer: 0, direction: 1})
-//   expect(nearestVLayout(nearest1, 1)).toStrictEqual({layer: 2, direction: 1})
-//   expect(nearestVLayout(nearest1, 2)).toStrictEqual({layer: 2, direction: -1})
-//   expect(nearestVLayout(nearest1, 3)).toStrictEqual({layer: 2, direction: -1})
-//   expect(nearestVLayout(nearest1, 4)).toStrictEqual({layer: 0, direction: -1})
-//   expect(nearestVLayout(nearest1, 5)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from v in hlayout', () => {
-//   expect(nearestVLayout(nearest2, -1)).toStrictEqual(false)
-//   expect(nearestVLayout(nearest2, 0)).toStrictEqual({layer: 0, direction: 1})
-//   expect(nearestVLayout(nearest2, 1)).toStrictEqual({layer: 0, direction: 1})
-//   expect(nearestVLayout(nearest2, 2)).toStrictEqual({layer: 0, direction: -1})
-//   expect(nearestVLayout(nearest2, 3)).toStrictEqual(false)
-// })
-// test('find horizontal nearest layout no for resize horizontal from h in vlayout', () => {
-//   expect(nearestVLayout(nearest3, -1)).toStrictEqual(false)
-//   expect(nearestVLayout(nearest3, 0)).toStrictEqual({layer: 1, direction: 1})
-//   expect(nearestVLayout(nearest3, 1)).toStrictEqual({layer: 1, direction: -1})
-//   expect(nearestVLayout(nearest3, 2)).toStrictEqual(false)
-//   expect(nearestVLayout(nearest3, 3)).toStrictEqual(false)
-// })
+test('find vertical nearest layout no for resize vertical from no layout', () => {
+  expect(nearestVLayout(firstlayout, 0)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from horizontal layout', () => {
+  expect(nearestVLayout(horizontalLayout, -1)).toStrictEqual(false)
+  expect(nearestVLayout(horizontalLayout, 0)).toStrictEqual(false)
+  expect(nearestVLayout(horizontalLayout, 1)).toStrictEqual(false)
+  expect(nearestVLayout(horizontalLayout, 2)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from vertical layout', () => {
+  expect(nearestVLayout(verticalLayout, -1)).toStrictEqual(false)
+  expect(nearestVLayout(verticalLayout, 0)).toStrictEqual({layer: 0, direction: 1})
+  expect(nearestVLayout(verticalLayout, 1)).toStrictEqual({layer: 0, direction: -1})
+  expect(nearestVLayout(verticalLayout, 2)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from vhlayout', () => {
+  expect(nearestVLayout(vhlayout, -1)).toStrictEqual(false)
+  expect(nearestVLayout(vhlayout, 0)).toStrictEqual({layer: 0, direction: 1})
+  expect(nearestVLayout(vhlayout, 1)).toStrictEqual({layer: 0, direction: -1})
+  expect(nearestVLayout(vhlayout, 2)).toStrictEqual({layer: 0, direction: -1})
+  expect(nearestVLayout(vhlayout, 3)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from hvlayout', () => {
+  expect(nearestVLayout(hvlayout, -1)).toStrictEqual(false)
+  expect(nearestVLayout(hvlayout, 0)).toStrictEqual(false)
+  expect(nearestVLayout(hvlayout, 1)).toStrictEqual({layer: 1, direction: 1})
+  expect(nearestVLayout(hvlayout, 2)).toStrictEqual({layer: 1, direction: -1})
+  expect(nearestVLayout(hvlayout, 3)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from hvhvlayout', () => {
+  expect(nearestVLayout(nearest1, -1)).toStrictEqual(false)
+  expect(nearestVLayout(nearest1, 0)).toStrictEqual(false)
+  expect(nearestVLayout(nearest1, 1)).toStrictEqual({layer: 1, direction: 1})
+  expect(nearestVLayout(nearest1, 2)).toStrictEqual({layer: 3, direction: 1})
+  expect(nearestVLayout(nearest1, 3)).toStrictEqual({layer: 3, direction: -1})
+  expect(nearestVLayout(nearest1, 4)).toStrictEqual({layer: 1, direction: -1})
+  expect(nearestVLayout(nearest1, 5)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from v in hlayout', () => {
+  expect(nearestVLayout(nearest2, -1)).toStrictEqual(false)
+  expect(nearestVLayout(nearest2, 0)).toStrictEqual({layer: 1, direction: 1})
+  expect(nearestVLayout(nearest2, 1)).toStrictEqual({layer: 1, direction: -1})
+  expect(nearestVLayout(nearest2, 2)).toStrictEqual(false)
+  expect(nearestVLayout(nearest2, 3)).toStrictEqual(false)
+})
+test('find vertical nearest layout no for resize vertical from h in vlayout', () => {
+  expect(nearestVLayout(nearest3, -1)).toStrictEqual(false)
+  expect(nearestVLayout(nearest3, 0)).toStrictEqual({layer: 0, direction: 1})
+  expect(nearestVLayout(nearest3, 1)).toStrictEqual({layer: 0, direction: 1})
+  expect(nearestVLayout(nearest3, 2)).toStrictEqual({layer: 0, direction: -1})
+  expect(nearestVLayout(nearest3, 3)).toStrictEqual(false)
+})
 
 
 // test('', () => {

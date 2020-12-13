@@ -75,8 +75,11 @@ const findLayoutNo = (layout, nth) => {
   return false
 }
 
-// find nearest hlayout for vertical split
-const nearestHLayout = (layout, nth, found) => {
+const opposite = (type) => {
+  return type == 'horizontal' && 'vertical' || 'horizontal'
+}
+
+const _nearestLayout = (type, layout, nth, found) => {
   if(!found){
     found = false
   }
@@ -84,42 +87,40 @@ const nearestHLayout = (layout, nth, found) => {
     // no split means no separator
     return false
   }
-  if(layout.type == 'horizontal' && foundinPrimary(layout, nth)){
+  if(layout.type == type && foundinPrimary(layout, nth)){
     // fund in left
     return {layer: layout.no, direction: 1}
   }
-  if(layout.type == 'horizontal' && foundinSecondary(layout, nth)){
+  if(layout.type == type && foundinSecondary(layout, nth)){
     // fund in right
     return {layer: layout.no, direction: -1}
   }
-  if(layout.type == 'vertical' &&
+  if(layout.type == opposite(type) &&
      (foundinPrimary(layout, nth) || foundinSecondary(layout, nth))){
     // fund with vertical separator
     return found
   }
   const primaryFound = {layer: layout.no, direction: 1}
-  const primary = nearestHLayout(layout.primary, nth, primaryFound)
+  const primary = _nearestLayout(type, layout.primary, nth, primaryFound)
   if(primary != false){
     return primary
   }
   const secondaryFound = {layer: layout.no, direction: -1}
-  const secondary = nearestHLayout(layout.secondary, nth, secondaryFound)
+  const secondary = _nearestLayout(type, layout.secondary, nth, secondaryFound)
   if(secondary != false){
     return secondary
   }
   return false
 }
-// find nearest vlayout for horizontal split
-const nearestVLayout = (layout, nth) => {
-  if(nth < 0 || layout.type == 'buffer'){
-    // no split means no separator
-    return false
-  }
-  if(layout.type == 'horizontal'){
-    // ther is no vertical separator
-    return false
-  }
-  // TBD
+
+// find nearest hlayout for resizing horizontal
+const nearestHLayout = (layout, nth, found) => {
+  return _nearestLayout('horizontal', layout, nth, found)
+}
+
+// find nearest vlayout for resizeing horizontal
+const nearestVLayout = (layout, nth, found) => {
+  return _nearestLayout('vertical', layout, nth, found)
 }
 
 const sampleLayout = {
