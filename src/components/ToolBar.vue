@@ -35,5 +35,6 @@
  .tool{
    height: 40px;
    width: 100%;
+   overflow: scroll;
  }
 </style>
