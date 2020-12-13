@@ -1,10 +1,9 @@
 import { createStore } from 'vuex'
 
 import {
-  findLayoutNo,
   sampleLayout,
-  // nearestHLayout,
-  // nearestVLayout,
+  nearestHLayout,
+  nearestVLayout,
 } from './layouts.js'
 
 // Create a new store instance.
@@ -47,19 +46,23 @@ export default createStore({
       state.windows.splice(payload.nth, 0, newWindow)
     },
     enlargeWindow (state) {
-      let result = findLayoutNo(state.layout, state.activeWindow)
+      let result = nearestVLayout(state.layout, state.activeWindow)
+      if(!result){return}
       state.size[result.layer] += result.direction * 10
     },
     shrinkWindow (state) {
-      let result = findLayoutNo(state.layout, state.activeWindow)
+      let result = nearestVLayout(state.layout, state.activeWindow)
+      if(!result){return}
       state.size[result.layer] -= result.direction * 10
     },
     enlargeWindowHorizontally (state) {
-      let result = findLayoutNo(state.layout, state.activeWindow)
+      let result = nearestHLayout(state.layout, state.activeWindow)
+      if(!result){return}
       state.size[result.layer] += result.direction * 10
     },
     shrinkWindowHorizontally (state) {
-      let result = findLayoutNo(state.layout, state.activeWindow)
+      let result = nearestHLayout(state.layout, state.activeWindow)
+      if(!result){return}
       state.size[result.layer] -= result.direction * 10
     }
   }
