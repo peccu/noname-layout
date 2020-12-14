@@ -1,5 +1,5 @@
 <template>
-  <div class="tool">
+  <div class="tool noscrollbar">
     <h1>this is tool bar: active: {{activeWindow}} in {{windowCount}} windows</h1>
     <button v-for="(key, i) in emits" :key="i" @click="$emit(key)">{{key}}</button>
   </div>
@@ -32,6 +32,7 @@
 </script>
 
 <style>
+ @import './noscrollbar.css';
  .tool{
    height: 40px;
    width: 100%;

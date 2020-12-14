@@ -4,7 +4,7 @@
       :thisWindow="thisWindow"
       :activeWindow="activeWindow"
     ></HeaderLine>
-    <div class="main">
+    <div class="main noscrollbar">
       <pre>
 ;; This buffer is for text that is not saved, and for Lisp evaluation.
 ;; To create a file, visit it with C-x C-f and enter text in its buffer.
@@ -50,6 +50,7 @@
 </script>
 
 <style>
+ @import './noscrollbar.css';
  .windowarea {
    width: 100%;
    height: 100%;
@@ -64,5 +65,4 @@
    background: #aaa;
    overflow: scroll;
  }
-
 </style>
