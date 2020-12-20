@@ -15,7 +15,10 @@
 
 <style>
  @import "./assets/reset.css";
- * { box-sizing: border-box; }
+ * {
+   box-sizing: border-box;
+   touch-action: manipulation;
+ }
  #app {
    height: 100vh;
    width: 100vw;
