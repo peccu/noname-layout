@@ -273,6 +273,27 @@ test('find vertical nearest layout no for resize vertical from h in vlayout', ()
   expect(nearestVLayout(nearest3, 3)).toStrictEqual(false)
 })
 
+test('split below from no split', () => {
+  var a = splitWindowBelow(firstlayout, 0)
+  console.log('splitbelow first', a)
+  console.log('verticalLayout', verticalLayout)
+  expect(a).toStrictEqual(verticalLayout)
+  expect(firstlayout).toStrictEqual(_firstlayout())
+  a = splitWindowBelow(horizontalLayout, 1)
+  console.log('splitbelow horizontal', a)
+  console.log('hvlayout', hvlayout)
+  expect(a).toStrictEqual(hvlayout)
+  expect(horizontalLayout).toStrictEqual(_horizontalLayout())
+  a = splitWindowBelow(horizontalLayout, 0)
+  console.log('splitwindowbelow horizontal', a)
+  console.log('nearest2', nearest2)
+  expect(splitWindowBelow(horizontalLayout, 0)).toStrictEqual(nearest2)
+  expect(horizontalLayout).toStrictEqual(_horizontalLayout())
+})
+test('split right from no split', () => {
+  expect(splitWindowRight(firstlayout, 0)).toStrictEqual(horizontalLayout)
+  expect(splitWindowRight(verticalLayout, 1)).toStrictEqual(vhlayout)
+})
 
 // test('', () => {
 //   expect().toStrictEqual()

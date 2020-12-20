@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 
 import {
   sampleLayout,
+  // sampleLayout2,
   nearestHLayout,
   nearestVLayout,
   splitWindowBelow,
