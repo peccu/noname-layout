@@ -7,7 +7,7 @@ import {
   nearestVLayout,
   splitWindowBelow,
   splitWindowRight
-} from './layouts.js'
+} from './layouts'
 
 // Create a new store instance.
 export default createStore({

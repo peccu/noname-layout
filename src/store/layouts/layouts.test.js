@@ -5,7 +5,7 @@ import {
   nearestVLayout,
   splitWindowBelow,
   splitWindowRight,
-} from './layouts.js'
+} from './index.js'
 
 // find layoutno
 const makeBuffer = (no, buffer) => {
