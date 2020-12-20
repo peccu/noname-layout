@@ -75,6 +75,32 @@ const findLayoutNo = (layout, nth) => {
   return false
 }
 
+const findBuffer = (layout, nth) => {
+  if(nth < 0 || (layout.type == 'buffer' && layout.no != nth)){
+    // maybe not found
+    return false
+  }
+  if(layout.type == 'buffer' && layout.no == nth){
+    // this is it
+    return layout
+  }
+  if(foundinPrimary(layout, nth)){
+    return layout.primary
+  }
+  if(foundinSecondary(layout, nth)){
+    return layout.secondary
+  }
+  const primary = findLayoutNo(layout.primary, nth)
+  if(primary != false){
+    return primary
+  }
+  const secondary = findLayoutNo(layout.secondary, nth)
+  if(secondary != false){
+    return secondary
+  }
+  return false
+}
+
 const opposite = (type) => {
   return type == 'horizontal' && 'vertical' || 'horizontal'
 }
@@ -113,6 +139,15 @@ const _nearestLayout = (type, layout, nth, found) => {
   return false
 }
 
+// make buffer
+const makeBuffer = (no, buffer) => {
+  return {
+    no,
+    type: 'buffer',
+    buffer: buffer
+  }
+}
+
 // find nearest hlayout for resizing horizontal
 const nearestHLayout = (layout, nth, found) => {
   return _nearestLayout('horizontal', layout, nth, found)
@@ -122,6 +157,22 @@ const nearestHLayout = (layout, nth, found) => {
 const nearestVLayout = (layout, nth, found) => {
   return _nearestLayout('vertical', layout, nth, found)
 }
+
+const makeLayout = (no, type, primary, secondary) => {
+  return {
+    no,
+    type,
+    primary,
+    secondary
+  }
+}
+
+const split = (no, type, current) => {
+  const primary = makeBuffer(0, current.buffer)
+  const secondary = makeBuffer(0, current.buffer)
+  return makeLayout(no, type, primary, secondary)
+}
+
 
 const sampleLayout = {
   no: 0,

@@ -3,15 +3,20 @@ import {
   sampleLayout,
   nearestHLayout,
   nearestVLayout,
+  splitWindowBelow,
+  splitWindowRight,
 } from './layouts.js'
 
 // find layoutno
-const buffer = (no) => {
+const makeBuffer = (no, buffer) => {
   return {
     no,
     type: 'buffer',
-    buffer: "some buffer left"
+    buffer: buffer
   }
+}
+const buffer = (no) => {
+  return makeBuffer(no, "some buffer left")
 }
 
 const split = (no, type, primary, secondary) => {
@@ -25,7 +30,7 @@ const split = (no, type, primary, secondary) => {
 const splitRight = (no, primary, secondary) => {
   return split(no, 'horizontal', primary, secondary)
 }
-const splitBottom = (no, primary, secondary) => {
+const splitBelow = (no, primary, secondary) => {
   return split(no, 'vertical', primary, secondary)
 }
 
@@ -55,7 +60,7 @@ const verticalLayout = splitBottom(0, buffer(0), buffer(1))
 test('hseparator', () => {
   // with 0 returns 0 top
   expect(findLayoutNo(verticalLayout, 0)).toStrictEqual({layer: 0, direction: 1})
-  // with 1 returns 0 bottom
+  // with 1 returns 0 below
   expect(findLayoutNo(verticalLayout, 1)).toStrictEqual({layer: 0, direction: -1})
   // with -1 throws not found
   expect(findLayoutNo(verticalLayout, -1)).toStrictEqual(false)
@@ -69,7 +74,7 @@ test('vhseparator', () => {
   expect(findLayoutNo(hvlayout, 0)).toStrictEqual({layer: 0, direction: 1})
   // with 1 returns 1 top(primary)
   expect(findLayoutNo(hvlayout, 1)).toStrictEqual({layer: 1, direction: 1})
-  // with 2 returns 1 bottom(secondary)
+  // with 2 returns 1 below(secondary)
   expect(findLayoutNo(hvlayout, 2)).toStrictEqual({layer: 1, direction: -1})
   // with -1 throws not found
   expect(findLayoutNo(hvlayout, -1)).toStrictEqual(false)
