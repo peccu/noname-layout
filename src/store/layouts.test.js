@@ -34,7 +34,93 @@ const splitBelow = (no, primary, secondary) => {
   return split(no, 'vertical', primary, secondary)
 }
 
+
+/* first layout
+ * +-----+
+ * |     |
+ * |  0  |
+ * |     |
+ * +-----+
+ * */
+const _firstlayout = () => buffer(0)
 const firstlayout = buffer(0)
+/* horizontal layout (first -> split right(0))
+ * +-----+-----+
+ * |     |     |
+ * |  0  |  1  |
+ * |     |     |
+ * +-----+-----+
+ * */
+const _horizontalLayout = () => splitRight(0, buffer(0), buffer(1))
+const horizontalLayout = splitRight(0, buffer(0), buffer(1))
+/* vertical layout (first -> split below(0))
+ * +---+
+ * |   |
+ * | 0 |
+ * |   |
+ * +---+
+ * |   |
+ * | 1 |
+ * |   |
+ * +---+
+ * */
+const _verticalLayout = () => splitBelow(0, buffer(0), buffer(1))
+const verticalLayout = splitBelow(0, buffer(0), buffer(1))
+/* hv layout (horizontal -> split below(1))
+ * +-----+-----+
+ * |     |     |
+ * |     |  1  |
+ * |     |     |
+ * |  0  +-----+
+ * |     |     |
+ * |     |  2  |
+ * |     |     |
+ * +-----+-----+
+ * */
+const _hvlayout = () => splitRight(0, buffer(0), splitBelow(1, buffer(1), buffer(2)))
+const hvlayout = splitRight(0, buffer(0), splitBelow(1, buffer(1), buffer(2)))
+/* vh layout (vertical -> split right(1))
+ * +-------+
+ * |       |
+ * |   0   |
+ * |       |
+ * +---+---+
+ * |   |   |
+ * | 1 | 2 |
+ * |   |   |
+ * +---+---+
+ * */
+const _vhlayout = () => splitBelow(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
+const vhlayout = splitBelow(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
+const _nearest1 = () => splitRight(0, buffer(0), splitBelow(1, splitRight(2, buffer(1), splitBelow(3, buffer(2), buffer(3))), buffer(4)))
+const nearest1 = splitRight(0, buffer(0), splitBelow(1, splitRight(2, buffer(1), splitBelow(3, buffer(2), buffer(3))), buffer(4)))
+/* nearest2 (horizontal -> split below(0))
+ * +-----+-----+
+ * |     |     |
+ * |  0  |     |
+ * |     |     |
+ * +-----+  2  |
+ * |     |     |
+ * |  1  |     |
+ * |     |     |
+ * +-----+-----+
+ * */
+const _nearest2 = () => splitRight(0, splitBelow(1, buffer(0), buffer(1)), buffer(2))
+const nearest2 = splitRight(0, splitBelow(1, buffer(0), buffer(1)), buffer(2))
+/* nearest3 (first -> split below(0) -> split right(0))
+ * +---+---+
+ * |   |   |
+ * | 0 | 1 |
+ * |   |   |
+ * +---+---+
+ * |       |
+ * |   2   |
+ * |       |
+ * +-------+
+ * */
+const _nearest3 = () => splitBelow(0, splitRight(1, buffer(0), buffer(1)), buffer(2))
+const nearest3 = splitBelow(0, splitRight(1, buffer(0), buffer(1)), buffer(2))
+
 test('first', () => {
   // with 0 returns 0
   expect(findLayoutNo(firstlayout, 0)).toStrictEqual({layer: 0, direction: 1})
@@ -44,7 +130,6 @@ test('first', () => {
   expect(findLayoutNo(firstlayout, 1)).toStrictEqual(false)
 })
 
-const horizontalLayout = splitRight(0, buffer(0), buffer(1))
 test('vseparator', () => {
   // with 0 returns 0 left
   expect(findLayoutNo(horizontalLayout, 0)).toStrictEqual({layer: 0, direction: 1})
@@ -56,7 +141,6 @@ test('vseparator', () => {
   expect(findLayoutNo(horizontalLayout, 2)).toStrictEqual(false)
 })
 
-const verticalLayout = splitBottom(0, buffer(0), buffer(1))
 test('hseparator', () => {
   // with 0 returns 0 top
   expect(findLayoutNo(verticalLayout, 0)).toStrictEqual({layer: 0, direction: 1})
@@ -68,7 +152,6 @@ test('hseparator', () => {
   expect(findLayoutNo(verticalLayout, 2)).toStrictEqual(false)
 })
 
-const hvlayout = splitRight(0, buffer(0), splitBottom(1, buffer(1), buffer(2)))
 test('vhseparator', () => {
   // with 0 returns 0 left(primary)
   expect(findLayoutNo(hvlayout, 0)).toStrictEqual({layer: 0, direction: 1})
@@ -82,10 +165,6 @@ test('vhseparator', () => {
   expect(findLayoutNo(hvlayout, 3)).toStrictEqual(false)
 })
 
-const vhlayout = splitBottom(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
-const nearest1 = splitRight(0, buffer(0), splitBottom(1, splitRight(2, buffer(1), splitBottom(3, buffer(2), buffer(3))), buffer(4)))
-const nearest2 = splitRight(0, splitBottom(1, buffer(0), buffer(1)), buffer(2))
-const nearest3 = splitBottom(0, splitRight(1, buffer(0), buffer(1)), buffer(2))
 // nearest H Layout
 test('find horizontal nearest layout no for resize horizontal from no layout', () => {
   expect(nearestHLayout(firstlayout, 0)).toStrictEqual(false)
