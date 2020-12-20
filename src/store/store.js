@@ -50,12 +50,11 @@ export default createStore({
       state.layout = splitWindowBelow(state.layout, state.activeWindow)
     },
     splitWindowRight (state, payload) {
-      state.layout = splitWindowRight(state.layout, state.activeWindow)
-
       const newWindow = {
         buffer: payload.currentWindow.buffer
       }
       state.windows.splice(payload.nth, 0, newWindow)
+      state.layout = splitWindowRight(state.layout, state.activeWindow)
     },
     enlargeWindow (state) {
       let result = nearestVLayout(state.layout, state.activeWindow)
