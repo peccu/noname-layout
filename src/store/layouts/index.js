@@ -29,16 +29,6 @@
  *
  * */
 
-
-
-// const traverse = (tree, nth, action, i) => {
-//   if(i === null){
-//     console.log('null')
-//   }else{
-//     console.log('foo', i)
-//   }
-// }
-
 const foundinPrimary = (layout, nth) => {
   return layout.type != 'buffer'
     && (layout.primary.type == 'buffer' && layout.primary.no == nth)
