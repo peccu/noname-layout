@@ -2,8 +2,8 @@
   <ToolBar
     :windowCount="windowCount"
     @other-window="otherWindow()"
-    @split-below="splitBelow()"
-    @split-right="splitRight()"
+    @split-below="splitWindowBelow()"
+    @split-right="splitWindowRight()"
     @enlarge-window="enlargeWindow()"
     @shrink-window="shrinkWindow()"
     @enlarge-window-horizontally="enlargeWindowHorizontally()"
@@ -46,13 +46,13 @@
      otherWindow(){
        this.$store.commit('otherWindow')
      },
-     splitBelow(){
+     splitWindowBelow(){
        console.log('before')
-       this.$store.commit('splitBelow', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
+       this.$store.commit('splitWindowBelow', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
        console.log(this.$store.state.windows)
      },
-     splitRight(){
-       this.$store.commit('splitRight', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
+     splitWindowRight(){
+       this.$store.commit('splitWindowRight', {nth: this.activeWindow, currentWindow: {buffer: "some buffer"}})
        console.log(this.$store.state.windows)
      },
      enlargeWindow(){

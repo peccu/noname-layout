@@ -4,6 +4,8 @@ import {
   sampleLayout,
   nearestHLayout,
   nearestVLayout,
+  splitWindowBelow,
+  splitWindowRight
 } from './layouts.js'
 
 // Create a new store instance.
@@ -33,13 +35,22 @@ export default createStore({
     otherWindow (state) {
       state.activeWindow = (state.activeWindow + 1) % state.windows.length
     },
-    splitBelow (state, payload) {
+    deleteWindow (state) {
+      return state
+    },
+    deleteOtherWindows (state) {
+      return state
+    },
+    splitWindowBelow (state, payload) {
       const newWindow = {
         buffer: payload.currentWindow.buffer
       }
       state.windows.splice(payload.nth, 0, newWindow)
+      state.layout = splitWindowBelow(state.layout, state.activeWindow)
     },
-    splitRight (state, payload) {
+    splitWindowRight (state, payload) {
+      state.layout = splitWindowRight(state.layout, state.activeWindow)
+
       const newWindow = {
         buffer: payload.currentWindow.buffer
       }
