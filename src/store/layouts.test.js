@@ -76,7 +76,7 @@ const hvlayout = splitRight(0, buffer(0), splitBelow(1, buffer(1), buffer(2)))
  * */
 const _vhlayout = () => splitBelow(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
 const vhlayout = splitBelow(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
-/* nearest1 (nearest3 -> split right(1) -> split below (2))
+/* nearest1 (hv -> split right(1) -> split below (2))
  * +---+---+---+
  * |   |   | 2 |
  * |   | 1 +---+
