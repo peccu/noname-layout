@@ -7,6 +7,8 @@ import {
   splitWindowRight,
 } from './index.js'
 
+// TODO separate this test for each module
+
 // find layoutno
 const makeBuffer = (no, buffer) => {
   return {
