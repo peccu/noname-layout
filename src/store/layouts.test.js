@@ -37,85 +37,70 @@ const splitBelow = (no, primary, secondary) => {
 
 /* first layout
  * +-----+
- * |     |
  * |  0  |
- * |     |
  * +-----+
  * */
 const _firstlayout = () => buffer(0)
 const firstlayout = buffer(0)
 /* horizontal layout (first -> split right(0))
  * +-----+-----+
- * |     |     |
  * |  0  |  1  |
- * |     |     |
  * +-----+-----+
  * */
 const _horizontalLayout = () => splitRight(0, buffer(0), buffer(1))
 const horizontalLayout = splitRight(0, buffer(0), buffer(1))
 /* vertical layout (first -> split below(0))
  * +---+
- * |   |
  * | 0 |
- * |   |
  * +---+
- * |   |
  * | 1 |
- * |   |
  * +---+
  * */
 const _verticalLayout = () => splitBelow(0, buffer(0), buffer(1))
 const verticalLayout = splitBelow(0, buffer(0), buffer(1))
 /* hv layout (horizontal -> split below(1))
  * +-----+-----+
- * |     |     |
  * |     |  1  |
- * |     |     |
  * |  0  +-----+
- * |     |     |
  * |     |  2  |
- * |     |     |
  * +-----+-----+
  * */
 const _hvlayout = () => splitRight(0, buffer(0), splitBelow(1, buffer(1), buffer(2)))
 const hvlayout = splitRight(0, buffer(0), splitBelow(1, buffer(1), buffer(2)))
 /* vh layout (vertical -> split right(1))
  * +-------+
- * |       |
  * |   0   |
- * |       |
  * +---+---+
- * |   |   |
  * | 1 | 2 |
- * |   |   |
  * +---+---+
  * */
 const _vhlayout = () => splitBelow(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
 const vhlayout = splitBelow(0, buffer(0), splitRight(1, buffer(1), buffer(2)))
+/* nearest1 (nearest3 -> split right(1) -> split below (2))
+ * +---+---+---+
+ * |   |   | 2 |
+ * |   | 1 +---+
+ * | 0 |   | 3 |
+ * |   +---+---+
+ * |   |   4   |
+ * +---+---+---+
+ */
 const _nearest1 = () => splitRight(0, buffer(0), splitBelow(1, splitRight(2, buffer(1), splitBelow(3, buffer(2), buffer(3))), buffer(4)))
 const nearest1 = splitRight(0, buffer(0), splitBelow(1, splitRight(2, buffer(1), splitBelow(3, buffer(2), buffer(3))), buffer(4)))
 /* nearest2 (horizontal -> split below(0))
  * +-----+-----+
- * |     |     |
  * |  0  |     |
- * |     |     |
  * +-----+  2  |
- * |     |     |
  * |  1  |     |
- * |     |     |
  * +-----+-----+
  * */
 const _nearest2 = () => splitRight(0, splitBelow(1, buffer(0), buffer(1)), buffer(2))
 const nearest2 = splitRight(0, splitBelow(1, buffer(0), buffer(1)), buffer(2))
-/* nearest3 (first -> split below(0) -> split right(0))
+/* nearest3 (vertical -> split right(0))
  * +---+---+
- * |   |   |
  * | 0 | 1 |
- * |   |   |
  * +---+---+
- * |       |
  * |   2   |
- * |       |
  * +-------+
  * */
 const _nearest3 = () => splitBelow(0, splitRight(1, buffer(0), buffer(1)), buffer(2))
